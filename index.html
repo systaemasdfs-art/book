@@ -1,0 +1,1454 @@
+<!doctype html>
+<html lang="th" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>การเปลี่ยนแปลงภูมิอากาศโลก</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&amp;family=Prompt:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    * {
+      font-family: 'Sarabun', sans-serif;
+    }
+    .title-font {
+      font-family: 'Prompt', sans-serif;
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1a1a2e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #00d4aa, #0077b6);
+      border-radius: 4px;
+    }
+    
+    /* Glassmorphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Animated gradient background */
+    .gradient-bg {
+      background: linear-gradient(-45deg, #0f0f23, #1a1a2e, #16213e, #0f3460);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Pulse glow */
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 170, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(0, 212, 170, 0.6); }
+    }
+    
+    .pulse-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    
+    /* Chapter card hover */
+    .chapter-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .chapter-card:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+    
+    /* Page transition */
+    .page {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+    .page.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Icon containers */
+    .icon-container {
+      background: linear-gradient(135deg, rgba(0, 212, 170, 0.2), rgba(0, 119, 182, 0.2));
+      border: 2px solid rgba(0, 212, 170, 0.3);
+    }
+    
+    /* Progress bar */
+    .progress-bar {
+      background: linear-gradient(90deg, #00d4aa, #0077b6, #00d4aa);
+      background-size: 200% 100%;
+      animation: progressShimmer 2s linear infinite;
+    }
+    
+    @keyframes progressShimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    
+    /* Section divider */
+    .section-divider {
+      background: linear-gradient(90deg, transparent, #00d4aa, transparent);
+      height: 2px;
+    }
+    
+    /* Info card */
+    .info-card {
+      background: linear-gradient(145deg, rgba(0, 212, 170, 0.1), rgba(0, 119, 182, 0.1));
+      border-left: 4px solid #00d4aa;
+    }
+    
+    /* Navigation dots */
+    .nav-dot {
+      transition: all 0.3s ease;
+    }
+    .nav-dot.active {
+      background: #00d4aa;
+      transform: scale(1.5);
+    }
+    
+    /* Team member card animation */
+    .team-card {
+      transition: all 0.3s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full gradient-bg text-gray-100 overflow-x-hidden">
+  <div id="app" class="h-full overflow-auto"><!-- Fixed Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 glass">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full icon-container flex items-center justify-center">
+       <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+       </svg>
+      </div><span class="title-font font-semibold text-emerald-400" id="nav-title">Climate Book</span>
+     </div><!-- Progress indicator -->
+     <div class="hidden md:flex items-center gap-2"><span class="text-xs text-gray-400">ความคืบหน้า</span>
+      <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
+       <div id="reading-progress" class="h-full progress-bar rounded-full" style="width: 0%"></div>
+      </div>
+     </div><!-- Mobile menu button --> <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg></button>
+    </div>
+   </nav><!-- Side Navigation (Desktop) -->
+   <div class="fixed left-4 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-3"><a href="#cover" class="nav-dot w-3 h-3 rounded-full bg-gray-600 hover:bg-emerald-400 active" data-section="cover"></a> <a href="#chapter1" class="nav-dot w-3 h-3 rounded-full bg-gray-600 hover:bg-emerald-400" data-section="chapter1"></a> <a href="#chapter2" class="nav-dot w-3 h-3 rounded-full bg-gray-600 hover:bg-emerald-400" data-section="chapter2"></a> <a href="#section2-1" class="nav-dot w-2 h-2 rounded-full bg-gray-600 hover:bg-emerald-400 ml-1" data-section="section2-1"></a> <a href="#section2-2" class="nav-dot w-2 h-2 rounded-full bg-gray-600 hover:bg-emerald-400 ml-1" data-section="section2-2"></a> <a href="#section2-3" class="nav-dot w-2 h-2 rounded-full bg-gray-600 hover:bg-emerald-400 ml-1" data-section="section2-3"></a> <a href="#section2-4" class="nav-dot w-2 h-2 rounded-full bg-gray-600 hover:bg-emerald-400 ml-1" data-section="section2-4"></a> <a href="#chapter3" class="nav-dot w-3 h-3 rounded-full bg-gray-600 hover:bg-emerald-400" data-section="chapter3"></a>
+   </div><!-- Mobile Menu -->
+   <div id="mobile-menu" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/80" id="menu-overlay"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-72 glass p-6"><button id="close-menu" class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-lg">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg></button>
+     <nav class="mt-12 space-y-4"><a href="#cover" class="block py-2 px-4 rounded-lg hover:bg-white/10 transition-colors menu-link">🏠 หน้าปก</a> <a href="#chapter1" class="block py-2 px-4 rounded-lg hover:bg-white/10 transition-colors menu-link">📖 บทที่ 1</a> <a href="#chapter2" class="block py-2 px-4 rounded-lg hover:bg-white/10 transition-colors menu-link">📖 บทที่ 2</a> <a href="#section2-1" class="block py-2 px-4 pl-8 rounded-lg hover:bg-white/10 transition-colors text-sm menu-link">• ระบบโลก</a> <a href="#section2-2" class="block py-2 px-4 pl-8 rounded-lg hover:bg-white/10 transition-colors text-sm menu-link">• เอลนีโญ-ลานีญา</a> <a href="#section2-3" class="block py-2 px-4 pl-8 rounded-lg hover:bg-white/10 transition-colors text-sm menu-link">• ขั้วคู่มหาสมุทรอินเดีย</a> <a href="#section2-4" class="block py-2 px-4 pl-8 rounded-lg hover:bg-white/10 transition-colors text-sm menu-link">• คลื่นความร้อน</a> <a href="#chapter3" class="block py-2 px-4 rounded-lg hover:bg-white/10 transition-colors menu-link">📖 บทที่ 3</a>
+     </nav>
+    </div>
+   </div><!-- ==================== COVER PAGE ==================== -->
+   <section id="cover" class="min-h-screen flex items-center justify-center relative px-4 pt-20"><!-- Decorative elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+     <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl float"></div>
+     <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl float" style="animation-delay: -3s;"></div>
+     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative z-10 text-center max-w-4xl mx-auto"><!-- Earth illustration -->
+     <div class="relative w-64 h-64 mx-auto mb-8">
+      <div class="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-emerald-400 to-blue-600 pulse-glow"></div>
+      <div class="absolute inset-2 rounded-full bg-gradient-to-br from-blue-400 via-green-300 to-blue-500 overflow-hidden"><!-- Continents SVG -->
+       <svg class="w-full h-full" viewbox="0 0 100 100"><defs>
+         <lineargradient id="oceanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#0077b6" />
+          <stop offset="100%" style="stop-color:#00b4d8" />
+         </lineargradient>
+         <lineargradient id="landGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#2d6a4f" />
+          <stop offset="100%" style="stop-color:#40916c" />
+         </lineargradient>
+        </defs> <circle cx="50" cy="50" r="48" fill="url(#oceanGrad)" /> <!-- Stylized continents --> <path d="M20 30 Q25 25 35 28 Q40 30 38 40 Q35 50 25 48 Q18 45 20 30Z" fill="url(#landGrad)" opacity="0.9" /> <path d="M55 20 Q70 18 75 30 Q78 45 70 55 Q60 60 55 50 Q50 35 55 20Z" fill="url(#landGrad)" opacity="0.9" /> <path d="M30 55 Q40 52 50 60 Q55 70 45 75 Q35 78 28 70 Q25 62 30 55Z" fill="url(#landGrad)" opacity="0.9" /> <path d="M65 65 Q75 62 80 70 Q78 78 70 80 Q62 78 65 65Z" fill="url(#landGrad)" opacity="0.9" /> <!-- Clouds --> <ellipse cx="30" cy="35" rx="12" ry="4" fill="white" opacity="0.4" /> <ellipse cx="70" cy="45" rx="15" ry="5" fill="white" opacity="0.3" /> <ellipse cx="45" cy="65" rx="10" ry="3" fill="white" opacity="0.35" />
+       </svg>
+      </div><!-- Orbiting element -->
+      <div class="absolute inset-0 animate-spin" style="animation-duration: 20s;">
+       <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-yellow-400 rounded-full shadow-lg shadow-yellow-400/50"></div>
+      </div>
+     </div>
+     <h1 id="main-title" class="title-font text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">การเปลี่ยนแปลงภูมิอากาศโลก</h1>
+     <p class="text-xl md:text-2xl text-gray-300 mb-2">Global Climate Change</p>
+     <div class="section-divider w-48 mx-auto my-6"></div>
+     <p class="text-gray-400 mb-8 max-w-2xl mx-auto">ค้นพบความเข้าใจเชิงลึกเกี่ยวกับปัจจัย ปรากฏการณ์ และแนวทางแก้ไข<br>
+       วิกฤตการณ์ด้านสภาพภูมิอากาศที่ส่งผลกระทบต่อโลกของเรา</p><!-- Quick navigation cards -->
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12"><a href="#chapter1" class="chapter-card glass rounded-2xl p-6 text-left hover:border-emerald-500/50">
+       <div class="w-12 h-12 rounded-xl icon-container flex items-center justify-center mb-4"><span class="text-2xl">🏭</span>
+       </div><h3 class="title-font font-semibold text-lg mb-2">บทที่ 1</h3><p class="text-sm text-gray-400">ปัจจัยที่มีผลต่อการเปลี่ยนแปลง</p></a> <a href="#chapter2" class="chapter-card glass rounded-2xl p-6 text-left hover:border-emerald-500/50">
+       <div class="w-12 h-12 rounded-xl icon-container flex items-center justify-center mb-4"><span class="text-2xl">🌊</span>
+       </div><h3 class="title-font font-semibold text-lg mb-2">บทที่ 2</h3><p class="text-sm text-gray-400">ปรากฏการณ์ที่เกิดจากการเปลี่ยนแปลง</p></a> <a href="#chapter3" class="chapter-card glass rounded-2xl p-6 text-left hover:border-emerald-500/50">
+       <div class="w-12 h-12 rounded-xl icon-container flex items-center justify-center mb-4"><span class="text-2xl">🌱</span>
+       </div><h3 class="title-font font-semibold text-lg mb-2">บทที่ 3</h3><p class="text-sm text-gray-400">แนวทางชะลอการเปลี่ยนแปลง</p></a>
+     </div><!-- Scroll indicator -->
+     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+     </div>
+    </div>
+   </section><!-- ==================== CHAPTER 1 ==================== -->
+   <section id="chapter1" class="min-h-screen py-24 px-4">
+    <div class="max-w-5xl mx-auto">
+     <div class="page"><!-- Chapter header -->
+      <div class="flex items-center gap-4 mb-8">
+       <div class="w-16 h-16 rounded-2xl icon-container flex items-center justify-center"><span class="text-3xl">📖</span>
+       </div>
+       <div>
+        <p class="text-emerald-400 text-sm font-medium">บทที่ 1</p>
+        <h2 class="title-font text-3xl md:text-4xl font-bold">ปัจจัยที่มีผลต่อการเปลี่ยนแปลง</h2>
+       </div>
+      </div>
+      <div class="section-divider w-full mb-12"></div><!-- Introduction -->
+      <div class="info-card rounded-xl p-6 mb-12">
+       <p class="text-lg leading-relaxed">การเปลี่ยนแปลงภูมิอากาศโลกเกิดจากปัจจัยหลายประการ ทั้งจากธรรมชาติและกิจกรรมของมนุษย์ ซึ่งส่งผลให้อุณหภูมิเฉลี่ยของโลกเพิ่มสูงขึ้น และก่อให้เกิดผลกระทบต่อระบบนิเวศทั่วโลก</p>
+      </div><!-- Factor 1: Greenhouse Gases -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row gap-8 items-center">
+        <div class="lg:w-1/3"><!-- Greenhouse effect illustration -->
+         <svg class="w-full max-w-xs mx-auto" viewbox="0 0 200 200"><defs>
+           <lineargradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#1e3a5f" />
+            <stop offset="100%" style="stop-color:#0d1b2a" />
+           </lineargradient>
+           <lineargradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffd60a" />
+            <stop offset="100%" style="stop-color:#ff9500" />
+           </lineargradient>
+          </defs> <!-- Background --> <rect width="200" height="200" fill="url(#skyGrad)" rx="20" /> <!-- Sun --> <circle cx="40" cy="40" r="25" fill="url(#sunGrad)">
+           <animate attributename="r" values="25;27;25" dur="2s" repeatcount="indefinite" />
+          </circle> <!-- Sun rays --> <g stroke="#ffd60a" stroke-width="2" opacity="0.6">
+           <line x1="40" y1="70" x2="80" y2="110">
+            <animate attributename="opacity" values="0.6;0.3;0.6" dur="1.5s" repeatcount="indefinite" />
+           </line>
+           <line x1="55" y1="60" x2="100" y2="100">
+            <animate attributename="opacity" values="0.6;0.3;0.6" dur="1.5s" repeatcount="indefinite" begin="0.2s" />
+           </line>
+           <line x1="70" y1="45" x2="120" y2="90">
+            <animate attributename="opacity" values="0.6;0.3;0.6" dur="1.5s" repeatcount="indefinite" begin="0.4s" />
+           </line>
+          </g> <!-- Earth surface --> <ellipse cx="100" cy="180" rx="90" ry="30" fill="#2d6a4f" /> <!-- Greenhouse layer --> <path d="M20 140 Q100 100 180 140" fill="none" stroke="#ff6b6b" stroke-width="3" stroke-dasharray="5,5" opacity="0.7">
+           <animate attributename="stroke-dashoffset" from="0" to="20" dur="2s" repeatcount="indefinite" />
+          </path> <!-- Trapped heat arrows --> <g fill="#ff6b6b" opacity="0.8">
+           <path d="M90 130 L95 120 L100 130 L95 125 Z">
+            <animate attributename="transform" values="translate(0,0);translate(0,-10);translate(0,0)" dur="1.5s" repeatcount="indefinite" />
+           </path>
+           <path d="M110 135 L115 125 L120 135 L115 130 Z">
+            <animate attributename="transform" values="translate(0,0);translate(0,-10);translate(0,0)" dur="1.5s" repeatcount="indefinite" begin="0.3s" />
+           </path>
+           <path d="M130 125 L135 115 L140 125 L135 120 Z">
+            <animate attributename="transform" values="translate(0,0);translate(0,-10);translate(0,0)" dur="1.5s" repeatcount="indefinite" begin="0.6s" />
+           </path>
+          </g> <!-- CO2 molecules --> <g fill="#94a3b8" font-size="10" font-weight="bold">
+           <text x="60" y="110" opacity="0.7">
+            CO₂
+           </text>
+           <text x="130" y="100" opacity="0.7">
+            CH₄
+           </text>
+           <text x="95" y="85" opacity="0.7">
+            N₂O
+           </text>
+          </g>
+         </svg>
+        </div>
+        <div class="lg:w-2/3">
+         <h3 class="title-font text-2xl font-semibold mb-4 text-emerald-400">🏭 ก๊าซเรือนกระจก (Greenhouse Gases)</h3>
+         <p class="text-gray-300 leading-relaxed mb-4">ก๊าซเรือนกระจกเป็นปัจจัยหลักที่ทำให้เกิดภาวะโลกร้อน โดยก๊าซเหล่านี้จะดูดซับและกักเก็บความร้อนจากดวงอาทิตย์ไว้ในชั้นบรรยากาศ ทำให้อุณหภูมิโลกสูงขึ้น ก๊าซเรือนกระจกที่สำคัญ ได้แก่:</p>
+         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-white/5 rounded-xl p-4">
+           <h4 class="font-semibold text-cyan-400 mb-2">คาร์บอนไดออกไซด์ (CO₂)</h4>
+           <p class="text-sm text-gray-400">เกิดจากการเผาไหม้เชื้อเพลิงฟอสซิล การตัดไม้ทำลายป่า และกระบวนการอุตสาหกรรม</p>
+          </div>
+          <div class="bg-white/5 rounded-xl p-4">
+           <h4 class="font-semibold text-cyan-400 mb-2">มีเทน (CH₄)</h4>
+           <p class="text-sm text-gray-400">เกิดจากการย่อยสลายของสารอินทรีย์ การปศุสัตว์ และการทำนาข้าว</p>
+          </div>
+          <div class="bg-white/5 rounded-xl p-4">
+           <h4 class="font-semibold text-cyan-400 mb-2">ไนตรัสออกไซด์ (N₂O)</h4>
+           <p class="text-sm text-gray-400">เกิดจากการใช้ปุ๋ยไนโตรเจน และการเผาไหม้เชื้อเพลิง</p>
+          </div>
+          <div class="bg-white/5 rounded-xl p-4">
+           <h4 class="font-semibold text-cyan-400 mb-2">สารซีเอฟซี (CFCs)</h4>
+           <p class="text-sm text-gray-400">สารเคมีสังเคราะห์ที่ใช้ในเครื่องทำความเย็นและสเปรย์</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Factor 2: Deforestation -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row-reverse gap-8 items-center">
+        <div class="lg:w-1/3"><!-- Deforestation illustration -->
+         <svg class="w-full max-w-xs mx-auto" viewbox="0 0 200 200"><defs>
+           <lineargradient id="treeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#22c55e" />
+            <stop offset="100%" style="stop-color:#15803d" />
+           </lineargradient>
+           <lineargradient id="deadTreeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#78716c" />
+            <stop offset="100%" style="stop-color:#44403c" />
+           </lineargradient>
+          </defs> <!-- Background --> <rect width="200" height="200" fill="#1a1a2e" rx="20" /> <!-- Ground --> <rect y="160" width="200" height="40" fill="#292524" rx="0 0 20 20" /> <!-- Healthy trees (left side) --> <g><!-- Tree 1 -->
+           <rect x="20" y="120" width="8" height="40" fill="#854d0e" />
+           <polygon points="24,60 5,120 43,120" fill="url(#treeGrad)" />
+           <polygon points="24,80 10,110 38,110" fill="#16a34a" /> <!-- Tree 2 -->
+           <rect x="50" y="130" width="6" height="30" fill="#854d0e" />
+           <polygon points="53,85 40,130 66,130" fill="url(#treeGrad)" />
+          </g> <!-- Division line --> <line x1="100" y1="40" x2="100" y2="160" stroke="#ef4444" stroke-width="2" stroke-dasharray="10,5" opacity="0.5" /> <!-- Dead trees (right side) --> <g><!-- Stump 1 -->
+           <rect x="120" y="145" width="15" height="15" fill="#78716c" />
+           <ellipse cx="127.5" cy="145" rx="7.5" ry="3" fill="#a8a29e" /> <!-- Stump 2 -->
+           <rect x="155" y="150" width="12" height="10" fill="#78716c" />
+           <ellipse cx="161" cy="150" rx="6" ry="2" fill="#a8a29e" /> <!-- Dead tree -->
+           <rect x="175" y="110" width="6" height="50" fill="#57534e" />
+           <line x1="178" y1="120" x2="190" y2="110" stroke="#57534e" stroke-width="4" />
+           <line x1="178" y1="130" x2="165" y2="120" stroke="#57534e" stroke-width="3" />
+          </g> <!-- Smoke/pollution --> <g fill="#6b7280" opacity="0.4">
+           <circle cx="140" cy="80" r="15">
+            <animate attributename="cy" values="80;60;80" dur="4s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.4;0.1;0.4" dur="4s" repeatcount="indefinite" />
+           </circle>
+           <circle cx="160" cy="70" r="10">
+            <animate attributename="cy" values="70;50;70" dur="3s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.3;0.1;0.3" dur="3s" repeatcount="indefinite" />
+           </circle>
+          </g> <!-- Warning icon --> <g transform="translate(85, 20)">
+           <polygon points="15,0 30,26 0,26" fill="#fbbf24" stroke="#f59e0b" stroke-width="2" />
+           <text x="15" y="20" text-anchor="middle" fill="#1a1a2e" font-size="14" font-weight="bold">
+            !
+           </text>
+          </g>
+         </svg>
+        </div>
+        <div class="lg:w-2/3">
+         <h3 class="title-font text-2xl font-semibold mb-4 text-emerald-400">🌲 การตัดไม้ทำลายป่า (Deforestation)</h3>
+         <p class="text-gray-300 leading-relaxed mb-4">ป่าไม้เป็นแหล่งดูดซับก๊าซคาร์บอนไดออกไซด์ที่สำคัญที่สุดของโลก การตัดไม้ทำลายป่าส่งผลกระทบรุนแรงต่อภูมิอากาศโลก:</p>
+         <ul class="space-y-3">
+          <li class="flex items-start gap-3"><span class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1"> <span class="text-red-400 text-sm">1</span> </span> <span class="text-gray-300"><strong class="text-white">ลดการดูดซับ CO₂</strong> - ต้นไม้ดูดซับ CO₂ เพื่อใช้ในการสังเคราะห์แสง เมื่อป่าถูกทำลาย ความสามารถในการดูดซับก๊าซเรือนกระจกก็ลดลง</span></li>
+          <li class="flex items-start gap-3"><span class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1"> <span class="text-red-400 text-sm">2</span> </span> <span class="text-gray-300"><strong class="text-white">ปล่อยคาร์บอนสะสม</strong> - การเผาป่าและการย่อยสลายของต้นไม้จะปล่อยคาร์บอนที่สะสมไว้กลับสู่บรรยากาศ</span></li>
+          <li class="flex items-start gap-3"><span class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1"> <span class="text-red-400 text-sm">3</span> </span> <span class="text-gray-300"><strong class="text-white">เปลี่ยนแปลงวัฏจักรน้ำ</strong> - ป่าไม้ช่วยควบคุมความชื้นและปริมาณน้ำฝนในพื้นที่</span></li>
+         </ul>
+        </div>
+       </div>
+      </div><!-- Factor 3: Fossil Fuels -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row gap-8 items-center">
+        <div class="lg:w-1/3"><!-- Industrial pollution illustration -->
+         <svg class="w-full max-w-xs mx-auto" viewbox="0 0 200 200"><defs>
+           <lineargradient id="factoryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#4b5563" />
+            <stop offset="100%" style="stop-color:#1f2937" />
+           </lineargradient>
+          </defs> <!-- Background --> <rect width="200" height="200" fill="#0f172a" rx="20" /> <!-- Polluted sky --> <rect y="0" width="200" height="100" fill="#1e293b" rx="20 20 0 0" /> <!-- Factory building --> <rect x="30" y="100" width="60" height="80" fill="url(#factoryGrad)" /> <rect x="100" y="120" width="70" height="60" fill="url(#factoryGrad)" /> <!-- Windows --> <g fill="#fbbf24" opacity="0.8">
+           <rect x="40" y="110" width="15" height="10" />
+           <rect x="65" y="110" width="15" height="10" />
+           <rect x="40" y="130" width="15" height="10" />
+           <rect x="65" y="130" width="15" height="10" />
+           <rect x="110" y="130" width="20" height="15" />
+           <rect x="140" y="130" width="20" height="15" />
+          </g> <!-- Chimneys --> <rect x="45" y="70" width="15" height="30" fill="#374151" /> <rect x="120" y="80" width="20" height="40" fill="#374151" /> <!-- Smoke --> <g fill="#6b7280">
+           <circle cx="52" cy="55" r="10" opacity="0.5">
+            <animate attributename="cy" values="55;30;55" dur="3s" repeatcount="indefinite" />
+            <animate attributename="r" values="10;18;10" dur="3s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.5;0.1;0.5" dur="3s" repeatcount="indefinite" />
+           </circle>
+           <circle cx="58" cy="45" r="8" opacity="0.4">
+            <animate attributename="cy" values="45;20;45" dur="2.5s" repeatcount="indefinite" />
+            <animate attributename="r" values="8;15;8" dur="2.5s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.4;0.1;0.4" dur="2.5s" repeatcount="indefinite" />
+           </circle>
+           <circle cx="130" cy="60" r="15" opacity="0.6">
+            <animate attributename="cy" values="60;25;60" dur="4s" repeatcount="indefinite" />
+            <animate attributename="r" values="15;25;15" dur="4s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.6;0.1;0.6" dur="4s" repeatcount="indefinite" />
+           </circle>
+           <circle cx="140" cy="50" r="12" opacity="0.5">
+            <animate attributename="cy" values="50;20;50" dur="3.5s" repeatcount="indefinite" />
+            <animate attributename="r" values="12;20;12" dur="3.5s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.5;0.1;0.5" dur="3.5s" repeatcount="indefinite" />
+           </circle>
+          </g> <!-- Ground --> <rect y="180" width="200" height="20" fill="#1e293b" rx="0 0 20 20" />
+         </svg>
+        </div>
+        <div class="lg:w-2/3">
+         <h3 class="title-font text-2xl font-semibold mb-4 text-emerald-400">⛽ การใช้เชื้อเพลิงฟอสซิล</h3>
+         <p class="text-gray-300 leading-relaxed mb-4">เชื้อเพลิงฟอสซิล (ถ่านหิน น้ำมัน ก๊าซธรรมชาติ) เป็นแหล่งพลังงานหลักของโลก แต่การเผาไหม้เชื้อเพลิงเหล่านี้ปล่อยก๊าซเรือนกระจกจำนวนมหาศาล</p><!-- Statistics -->
+         <div class="grid grid-cols-3 gap-4 mb-4">
+          <div class="text-center p-4 bg-white/5 rounded-xl">
+           <div class="text-3xl font-bold text-red-400">
+            75%
+           </div>
+           <p class="text-xs text-gray-400 mt-1">ของก๊าซเรือนกระจกมาจากเชื้อเพลิงฟอสซิล</p>
+          </div>
+          <div class="text-center p-4 bg-white/5 rounded-xl">
+           <div class="text-3xl font-bold text-orange-400">
+            36 Gt
+           </div>
+           <p class="text-xs text-gray-400 mt-1">CO₂ ปล่อยต่อปี</p>
+          </div>
+          <div class="text-center p-4 bg-white/5 rounded-xl">
+           <div class="text-3xl font-bold text-yellow-400">
+            1.5°C
+           </div>
+           <p class="text-xs text-gray-400 mt-1">อุณหภูมิเพิ่มขึ้นตั้งแต่ยุคอุตสาหกรรม</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Factor 4: Agriculture -->
+      <div class="glass rounded-3xl p-8">
+       <div class="flex flex-col lg:flex-row-reverse gap-8 items-center">
+        <div class="lg:w-1/3"><!-- Agriculture illustration -->
+         <svg class="w-full max-w-xs mx-auto" viewbox="0 0 200 200"><!-- Background --> <rect width="200" height="200" fill="#1a1a2e" rx="20" /> <!-- Sky --> <rect width="200" height="120" fill="#0f172a" rx="20 20 0 0" /> <!-- Sun --> <circle cx="160" cy="40" r="20" fill="#fbbf24" opacity="0.8" /> <!-- Rice paddies --> <g fill="#15803d">
+           <path d="M0 140 Q50 130 100 140 Q150 150 200 140 L200 180 L0 180 Z" />
+           <path d="M0 155 Q50 145 100 155 Q150 165 200 155 L200 180 L0 180 Z" fill="#166534" />
+          </g> <!-- Rice plants --> <g stroke="#22c55e" stroke-width="2" fill="none">
+           <path d="M30 140 Q32 130 30 120 M30 125 Q25 122 20 125 M30 125 Q35 122 40 125" />
+           <path d="M60 145 Q62 135 60 125 M60 130 Q55 127 50 130 M60 130 Q65 127 70 130" />
+           <path d="M100 140 Q102 130 100 118 M100 123 Q95 120 90 123 M100 123 Q105 120 110 123" />
+           <path d="M140 145 Q142 135 140 123 M140 128 Q135 125 130 128 M140 128 Q145 125 150 128" />
+           <path d="M170 140 Q172 130 170 120 M170 125 Q165 122 160 125 M170 125 Q175 122 180 125" />
+          </g> <!-- Cow --> <g transform="translate(70, 90)">
+           <ellipse cx="25" cy="20" rx="25" ry="15" fill="#d1d5db" />
+           <circle cx="50" cy="15" r="10" fill="#d1d5db" />
+           <rect x="10" y="30" width="5" height="15" fill="#9ca3af" />
+           <rect x="35" y="30" width="5" height="15" fill="#9ca3af" />
+           <circle cx="52" cy="12" r="2" fill="#1f2937" />
+           <ellipse cx="55" cy="18" rx="4" ry="3" fill="#fca5a5" />
+          </g> <!-- Methane bubbles --> <g fill="#84cc16" opacity="0.6">
+           <circle cx="85" cy="85" r="4">
+            <animate attributename="cy" values="85;60;85" dur="2s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.6;0;0.6" dur="2s" repeatcount="indefinite" />
+           </circle>
+           <text x="75" y="70" font-size="8" fill="#84cc16" opacity="0.8">
+            CH₄
+           </text>
+           <circle cx="95" cy="90" r="3">
+            <animate attributename="cy" values="90;65;90" dur="2.5s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.5;0;0.5" dur="2.5s" repeatcount="indefinite" />
+           </circle>
+          </g> <!-- Water surface --> <rect x="0" y="170" width="200" height="30" fill="#0ea5e9" opacity="0.3" rx="0 0 20 20" />
+         </svg>
+        </div>
+        <div class="lg:w-2/3">
+         <h3 class="title-font text-2xl font-semibold mb-4 text-emerald-400">🌾 การเกษตรและปศุสัตว์</h3>
+         <p class="text-gray-300 leading-relaxed mb-4">ภาคการเกษตรมีส่วนสำคัญในการปล่อยก๊าซเรือนกระจก โดยเฉพาะก๊าซมีเทนและไนตรัสออกไซด์</p>
+         <div class="space-y-4">
+          <div class="flex items-center gap-4 p-4 bg-white/5 rounded-xl"><span class="text-3xl">🐄</span>
+           <div>
+            <h4 class="font-semibold text-white">การเลี้ยงปศุสัตว์</h4>
+            <p class="text-sm text-gray-400">วัวและสัตว์เคี้ยวเอื้องปล่อยก๊าซมีเทนจากการย่อยอาหาร คิดเป็น 14.5% ของก๊าซเรือนกระจกทั้งหมด</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-white/5 rounded-xl"><span class="text-3xl">🌾</span>
+           <div>
+            <h4 class="font-semibold text-white">การทำนาข้าว</h4>
+            <p class="text-sm text-gray-400">นาข้าวแบบน้ำขังปล่อยก๊าซมีเทนจากการย่อยสลายของอินทรียวัตถุในสภาพไร้ออกซิเจน</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-white/5 rounded-xl"><span class="text-3xl">🧪</span>
+           <div>
+            <h4 class="font-semibold text-white">การใช้ปุ๋ยเคมี</h4>
+            <p class="text-sm text-gray-400">ปุ๋ยไนโตรเจนปล่อยก๊าซไนตรัสออกไซด์ซึ่งมีศักยภาพในการทำให้โลกร้อนสูงกว่า CO₂ ถึง 300 เท่า</p>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- ==================== CHAPTER 2 ==================== -->
+   <section id="chapter2" class="min-h-screen py-24 px-4">
+    <div class="max-w-5xl mx-auto">
+     <div class="page"><!-- Chapter header -->
+      <div class="flex items-center gap-4 mb-8">
+       <div class="w-16 h-16 rounded-2xl icon-container flex items-center justify-center"><span class="text-3xl">🌊</span>
+       </div>
+       <div>
+        <p class="text-emerald-400 text-sm font-medium">บทที่ 2</p>
+        <h2 class="title-font text-3xl md:text-4xl font-bold">ปรากฏการณ์ที่เกิดจากการเปลี่ยนแปลง</h2>
+       </div>
+      </div>
+      <div class="section-divider w-full mb-12"></div>
+      <div class="info-card rounded-xl p-6 mb-12">
+       <p class="text-lg leading-relaxed">การเปลี่ยนแปลงภูมิอากาศก่อให้เกิดปรากฏการณ์ทางธรรมชาติที่รุนแรงและผิดปกติมากขึ้น ส่งผลกระทบต่อสิ่งมีชีวิตและระบบนิเวศทั่วโลก</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- ==================== SECTION 2.1: Earth System ==================== -->
+   <section id="section2-1" class="min-h-screen py-24 px-4 bg-gradient-to-b from-transparent via-blue-900/10 to-transparent">
+    <div class="max-w-5xl mx-auto">
+     <div class="page">
+      <div class="flex items-center gap-3 mb-6"><span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">2.1</span>
+       <h3 class="title-font text-2xl md:text-3xl font-bold">ระบบโลกและการเปลี่ยนแปลงภูมิอากาศ</h3>
+      </div>
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row gap-8">
+        <div class="lg:w-1/2"><!-- Earth system illustration -->
+         <svg class="w-full max-w-md mx-auto" viewbox="0 0 300 300"><defs>
+           <lineargradient id="atmGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:0" />
+            <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+            <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:0.5" />
+           </lineargradient>
+           <lineargradient id="hydroGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#06b6d4" />
+            <stop offset="100%" style="stop-color:#0284c7" />
+           </lineargradient>
+          </defs> <!-- Background --> <rect width="300" height="300" fill="#0f172a" rx="20" /> <!-- Atmosphere layer --> <circle cx="150" cy="150" r="140" fill="url(#atmGrad)" opacity="0.5" /> <text x="150" y="30" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="bold">
+           บรรยากาศ (Atmosphere)
+          </text> <!-- Central Earth --> <circle cx="150" cy="150" r="80" fill="#1e3a5f" /> <!-- Continents --> <g fill="#2d6a4f">
+           <ellipse cx="120" cy="130" rx="25" ry="20" />
+           <ellipse cx="175" cy="125" rx="20" ry="25" />
+           <ellipse cx="140" cy="175" rx="30" ry="15" />
+           <ellipse cx="185" cy="165" rx="15" ry="12" />
+          </g> <!-- System labels --> <g font-size="10" fill="#94a3b8">
+           <text x="150" y="155" text-anchor="middle" fill="#22c55e" font-weight="bold">
+            ชีวมณฑล
+           </text>
+           <text x="150" y="167" text-anchor="middle" fill="#22c55e">
+            (Biosphere)
+           </text>
+          </g> <!-- Arrows showing interactions --> <g stroke="#fbbf24" stroke-width="2" fill="none" opacity="0.7">
+           <path d="M90 100 Q60 80 80 50" marker-end="url(#arrow)">
+            <animate attributename="stroke-dashoffset" from="20" to="0" dur="1s" repeatcount="indefinite" />
+           </path>
+           <path d="M210 100 Q240 80 220 50">
+            <animate attributename="stroke-dashoffset" from="20" to="0" dur="1s" repeatcount="indefinite" />
+           </path>
+          </g> <!-- Labels for spheres --> <g font-size="11" font-weight="bold">
+           <text x="40" y="150" fill="#0ea5e9">
+            อุทกภาค
+           </text>
+           <text x="40" y="165" fill="#0ea5e9" font-size="9">
+            (Hydrosphere)
+           </text>
+           <text x="220" y="150" fill="#f59e0b">
+            ธรณีภาค
+           </text>
+           <text x="220" y="165" fill="#f59e0b" font-size="9">
+            (Geosphere)
+           </text>
+           <text x="130" y="250" fill="#a855f7">
+            ไครโอสเฟียร์
+           </text>
+           <text x="130" y="265" fill="#a855f7" font-size="9">
+            (Cryosphere)
+           </text>
+          </g> <!-- Ice caps --> <ellipse cx="150" cy="80" rx="25" ry="8" fill="#e0f2fe" opacity="0.8" /> <ellipse cx="150" cy="220" rx="20" ry="6" fill="#e0f2fe" opacity="0.8" /> <!-- Ocean currents --> <path d="M70 150 Q60 170 80 180 Q100 190 90 170" stroke="#0ea5e9" stroke-width="2" fill="none" stroke-dasharray="5,3">
+           <animate attributename="stroke-dashoffset" from="0" to="20" dur="2s" repeatcount="indefinite" />
+          </path>
+         </svg>
+        </div>
+        <div class="lg:w-1/2">
+         <h4 class="title-font text-xl font-semibold mb-4 text-cyan-400">องค์ประกอบของระบบโลก</h4>
+         <p class="text-gray-300 mb-6 leading-relaxed">ระบบโลกประกอบด้วยองค์ประกอบหลัก 5 ส่วนที่มีความเชื่อมโยงและส่งผลกระทบต่อกัน การเปลี่ยนแปลงในส่วนใดส่วนหนึ่งจะกระทบต่อส่วนอื่นๆ ทั้งหมด</p>
+         <div class="space-y-3">
+          <div class="flex items-center gap-3 p-3 bg-blue-500/10 rounded-lg border-l-4 border-blue-400"><span class="text-xl">🌬️</span>
+           <div>
+            <h5 class="font-semibold text-blue-400">บรรยากาศ (Atmosphere)</h5>
+            <p class="text-sm text-gray-400">ชั้นอากาศที่ห่อหุ้มโลก ควบคุมอุณหภูมิและสภาพอากาศ</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-cyan-500/10 rounded-lg border-l-4 border-cyan-400"><span class="text-xl">💧</span>
+           <div>
+            <h5 class="font-semibold text-cyan-400">อุทกภาค (Hydrosphere)</h5>
+            <p class="text-sm text-gray-400">น้ำทั้งหมดบนโลก ทั้งมหาสมุทร แม่น้ำ และน้ำใต้ดิน</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-amber-500/10 rounded-lg border-l-4 border-amber-400"><span class="text-xl">🪨</span>
+           <div>
+            <h5 class="font-semibold text-amber-400">ธรณีภาค (Geosphere)</h5>
+            <p class="text-sm text-gray-400">ส่วนที่เป็นของแข็งของโลก รวมถึงเปลือกโลกและแมนเทิล</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-500/10 rounded-lg border-l-4 border-green-400"><span class="text-xl">🌿</span>
+           <div>
+            <h5 class="font-semibold text-green-400">ชีวมณฑล (Biosphere)</h5>
+            <p class="text-sm text-gray-400">สิ่งมีชีวิตทั้งหมดและระบบนิเวศบนโลก</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-purple-500/10 rounded-lg border-l-4 border-purple-400"><span class="text-xl">🧊</span>
+           <div>
+            <h5 class="font-semibold text-purple-400">ไครโอสเฟียร์ (Cryosphere)</h5>
+            <p class="text-sm text-gray-400">น้ำแข็งและหิมะทั้งหมด รวมถึงธารน้ำแข็งและขั้วโลก</p>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Feedback loops -->
+      <div class="glass rounded-3xl p-8">
+       <h4 class="title-font text-xl font-semibold mb-6 text-center text-emerald-400">🔄 วงจรป้อนกลับ (Feedback Loops)</h4>
+       <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-red-500/10 rounded-2xl p-6 border border-red-500/30">
+         <h5 class="font-semibold text-red-400 mb-3 flex items-center gap-2"><span class="text-xl">⬆️</span> Positive Feedback (วงจรเสริม)</h5>
+         <p class="text-gray-300 text-sm leading-relaxed mb-4">เมื่อน้ำแข็งละลาย พื้นผิวสีเข้มจะดูดซับความร้อนมากขึ้น ทำให้อุณหภูมิสูงขึ้น และน้ำแข็งละลายเพิ่มขึ้นอีก เรียกว่า "Ice-Albedo Feedback"</p>
+         <div class="flex items-center justify-center gap-2 text-sm"><span class="px-3 py-1 bg-red-500/20 rounded-full">🌡️ อุณหภูมิสูงขึ้น</span> <span>→</span> <span class="px-3 py-1 bg-red-500/20 rounded-full">🧊 น้ำแข็งละลาย</span> <span>→</span> <span class="px-3 py-1 bg-red-500/20 rounded-full">☀️ ดูดซับความร้อนมากขึ้น</span>
+         </div>
+        </div>
+        <div class="bg-green-500/10 rounded-2xl p-6 border border-green-500/30">
+         <h5 class="font-semibold text-green-400 mb-3 flex items-center gap-2"><span class="text-xl">⬇️</span> Negative Feedback (วงจรต้าน)</h5>
+         <p class="text-gray-300 text-sm leading-relaxed mb-4">เมื่ออุณหภูมิสูงขึ้น การระเหยของน้ำเพิ่มขึ้น ทำให้เมฆมากขึ้น เมฆสะท้อนแสงอาทิตย์กลับ ช่วยลดอุณหภูมิลง</p>
+         <div class="flex items-center justify-center gap-2 text-sm"><span class="px-3 py-1 bg-green-500/20 rounded-full">🌡️ อุณหภูมิสูงขึ้น</span> <span>→</span> <span class="px-3 py-1 bg-green-500/20 rounded-full">☁️ เมฆมากขึ้น</span> <span>→</span> <span class="px-3 py-1 bg-green-500/20 rounded-full">🌡️ อุณหภูมิลดลง</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- ==================== SECTION 2.2: El Niño & La Niña ==================== -->
+   <section id="section2-2" class="min-h-screen py-24 px-4">
+    <div class="max-w-5xl mx-auto">
+     <div class="page">
+      <div class="flex items-center gap-3 mb-6"><span class="px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-sm">2.2</span>
+       <h3 class="title-font text-2xl md:text-3xl font-bold">เอลนีโญและลานีญา</h3>
+      </div><!-- El Niño Section -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row gap-8 items-center">
+        <div class="lg:w-1/2"><!-- El Niño illustration -->
+         <svg class="w-full max-w-lg mx-auto" viewbox="0 0 400 200"><defs>
+           <lineargradient id="warmWater" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ef4444" />
+            <stop offset="100%" style="stop-color:#f97316" />
+           </lineargradient>
+           <lineargradient id="coolWater" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#0ea5e9" />
+            <stop offset="100%" style="stop-color:#06b6d4" />
+           </lineargradient>
+          </defs> <!-- Background ocean --> <rect width="400" height="200" fill="#0c4a6e" rx="15" /> <!-- Title --> <text x="200" y="25" text-anchor="middle" fill="#f97316" font-size="16" font-weight="bold">
+           🔥 El Niño (เอลนีโญ)
+          </text> <!-- Pacific Ocean labels --> <text x="60" y="55" fill="#94a3b8" font-size="10">
+           อเมริกาใต้
+          </text> <text x="320" y="55" fill="#94a3b8" font-size="10">
+           เอเชีย/ออสเตรเลีย
+          </text> <!-- Land masses --> <rect x="10" y="70" width="40" height="120" fill="#78716c" rx="5" /> <rect x="350" y="70" width="40" height="120" fill="#78716c" rx="5" /> <!-- Warm water pool (moves east) --> <ellipse cx="150" cy="140" rx="100" ry="40" fill="url(#warmWater)" opacity="0.7">
+           <animate attributename="cx" values="250;150;250" dur="4s" repeatcount="indefinite" />
+          </ellipse> <!-- Wind arrows (weakened) --> <g stroke="#94a3b8" stroke-width="2" fill="none" stroke-dasharray="5,5">
+           <path d="M300 90 L200 90">
+            <animate attributename="opacity" values="0.3;0.6;0.3" dur="2s" repeatcount="indefinite" />
+           </path>
+           <polygon points="200,85 190,90 200,95" fill="#94a3b8" opacity="0.5" />
+          </g> <!-- Temperature indicator --> <g transform="translate(320, 150)">
+           <rect x="0" y="0" width="60" height="30" fill="#1e293b" rx="5" />
+           <text x="30" y="20" text-anchor="middle" fill="#ef4444" font-size="12">
+            +2-3°C
+           </text>
+          </g> <!-- Rain clouds (over South America) --> <g fill="#6b7280" transform="translate(50, 40)">
+           <ellipse cx="20" cy="15" rx="20" ry="10" />
+           <ellipse cx="35" cy="10" rx="15" ry="8" />
+           <ellipse cx="10" cy="12" rx="12" ry="6" /> <!-- Rain drops -->
+           <g fill="#60a5fa">
+            <circle cx="15" cy="30" r="2">
+             <animate attributename="cy" values="30;45;30" dur="0.8s" repeatcount="indefinite" />
+            </circle>
+            <circle cx="25" cy="32" r="2">
+             <animate attributename="cy" values="32;47;32" dur="0.8s" repeatcount="indefinite" begin="0.2s" />
+            </circle>
+            <circle cx="35" cy="28" r="2">
+             <animate attributename="cy" values="28;43;28" dur="0.8s" repeatcount="indefinite" begin="0.4s" />
+            </circle>
+           </g>
+          </g> <!-- Drought symbol (over Asia) --> <g transform="translate(330, 40)">
+           <circle cx="20" cy="15" r="12" fill="#fbbf24" opacity="0.8" />
+           <text x="20" y="19" text-anchor="middle" fill="#1e293b" font-size="10">
+            ☀️
+           </text>
+          </g>
+         </svg>
+        </div>
+        <div class="lg:w-1/2">
+         <h4 class="title-font text-2xl font-semibold mb-4 text-orange-400">🔥 ปรากฏการณ์เอลนีโญ</h4>
+         <p class="text-gray-300 leading-relaxed mb-4">เอลนีโญ (El Niño) หมายถึง "เด็กชาย" ในภาษาสเปน เป็นปรากฏการณ์ที่อุณหภูมิผิวน้ำทะเลบริเวณมหาสมุทรแปซิฟิกตอนกลางและตะวันออกสูงกว่าปกติ</p>
+         <div class="space-y-3">
+          <div class="bg-orange-500/10 rounded-lg p-4">
+           <h5 class="font-semibold text-orange-300 mb-2">สาเหตุ</h5>
+           <p class="text-sm text-gray-400">ลมค้าตะวันออก (Trade Winds) อ่อนกำลังลง ทำให้น้ำอุ่นไหลกลับไปทางตะวันออก</p>
+          </div>
+          <div class="bg-orange-500/10 rounded-lg p-4">
+           <h5 class="font-semibold text-orange-300 mb-2">ผลกระทบ</h5>
+           <ul class="text-sm text-gray-400 space-y-1">
+            <li>• ฝนตกหนักและน้ำท่วมในอเมริกาใต้ตะวันตก</li>
+            <li>• ภัยแล้งในเอเชียตะวันออกเฉียงใต้และออสเตรเลีย</li>
+            <li>• ปะการังฟอกขาวจากน้ำทะเลอุ่นผิดปกติ</li>
+            <li>• ผลผลิตการประมงลดลงในเปรู</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- La Niña Section -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row-reverse gap-8 items-center">
+        <div class="lg:w-1/2"><!-- La Niña illustration -->
+         <svg class="w-full max-w-lg mx-auto" viewbox="0 0 400 200"><!-- Background ocean --> <rect width="400" height="200" fill="#0c4a6e" rx="15" /> <!-- Title --> <text x="200" y="25" text-anchor="middle" fill="#06b6d4" font-size="16" font-weight="bold">
+           ❄️ La Niña (ลานีญา)
+          </text> <!-- Pacific Ocean labels --> <text x="60" y="55" fill="#94a3b8" font-size="10">
+           อเมริกาใต้
+          </text> <text x="320" y="55" fill="#94a3b8" font-size="10">
+           เอเชีย/ออสเตรเลีย
+          </text> <!-- Land masses --> <rect x="10" y="70" width="40" height="120" fill="#78716c" rx="5" /> <rect x="350" y="70" width="40" height="120" fill="#78716c" rx="5" /> <!-- Cool water (spreads in east) --> <ellipse cx="150" cy="140" rx="80" ry="35" fill="url(#coolWater)" opacity="0.7" /> <!-- Warm water (stays in west) --> <ellipse cx="300" cy="140" rx="60" ry="30" fill="url(#warmWater)" opacity="0.7" /> <!-- Strong wind arrows --> <g stroke="#60a5fa" stroke-width="3" fill="none">
+           <path d="M320 85 L150 85" />
+           <polygon points="150,80 135,85 150,90" fill="#60a5fa" />
+           <path d="M300 95 L170 95" />
+           <polygon points="170,90 155,95 170,100" fill="#60a5fa" />
+          </g> <text x="235" y="80" fill="#60a5fa" font-size="9">
+           ลมค้าแรง
+          </text> <!-- Temperature indicator --> <g transform="translate(80, 150)">
+           <rect x="0" y="0" width="60" height="30" fill="#1e293b" rx="5" />
+           <text x="30" y="20" text-anchor="middle" fill="#06b6d4" font-size="12">
+            -2-3°C
+           </text>
+          </g> <!-- Rain clouds (over Asia) --> <g fill="#6b7280" transform="translate(310, 40)">
+           <ellipse cx="20" cy="15" rx="20" ry="10" />
+           <ellipse cx="35" cy="10" rx="15" ry="8" />
+           <ellipse cx="10" cy="12" rx="12" ry="6" /> <!-- Rain drops -->
+           <g fill="#60a5fa">
+            <circle cx="15" cy="30" r="2">
+             <animate attributename="cy" values="30;45;30" dur="0.8s" repeatcount="indefinite" />
+            </circle>
+            <circle cx="25" cy="32" r="2">
+             <animate attributename="cy" values="32;47;32" dur="0.8s" repeatcount="indefinite" begin="0.2s" />
+            </circle>
+            <circle cx="35" cy="28" r="2">
+             <animate attributename="cy" values="28;43;28" dur="0.8s" repeatcount="indefinite" begin="0.4s" />
+            </circle>
+           </g>
+          </g> <!-- Drought symbol (over South America) --> <g transform="translate(50, 40)">
+           <circle cx="20" cy="15" r="12" fill="#fbbf24" opacity="0.8" />
+           <text x="20" y="19" text-anchor="middle" fill="#1e293b" font-size="10">
+            ☀️
+           </text>
+          </g> <!-- Upwelling arrows --> <g stroke="#06b6d4" stroke-width="2" fill="none">
+           <path d="M100 180 L100 150">
+            <animate attributename="opacity" values="0.5;1;0.5" dur="1.5s" repeatcount="indefinite" />
+           </path>
+           <polygon points="95,155 100,145 105,155" fill="#06b6d4" />
+           <path d="M130 185 L130 155">
+            <animate attributename="opacity" values="0.5;1;0.5" dur="1.5s" repeatcount="indefinite" begin="0.3s" />
+           </path>
+           <polygon points="125,160 130,150 135,160" fill="#06b6d4" />
+          </g> <text x="115" y="198" fill="#06b6d4" font-size="8">
+           Upwelling
+          </text>
+         </svg>
+        </div>
+        <div class="lg:w-1/2">
+         <h4 class="title-font text-2xl font-semibold mb-4 text-cyan-400">❄️ ปรากฏการณ์ลานีญา</h4>
+         <p class="text-gray-300 leading-relaxed mb-4">ลานีญา (La Niña) หมายถึง "เด็กหญิง" เป็นปรากฏการณ์ตรงข้ามกับเอลนีโญ โดยอุณหภูมิผิวน้ำทะเลบริเวณมหาสมุทรแปซิฟิกตอนกลางและตะวันออกต่ำกว่าปกติ</p>
+         <div class="space-y-3">
+          <div class="bg-cyan-500/10 rounded-lg p-4">
+           <h5 class="font-semibold text-cyan-300 mb-2">สาเหตุ</h5>
+           <p class="text-sm text-gray-400">ลมค้าตะวันออกแรงกว่าปกติ พัดน้ำอุ่นไปสะสมทางตะวันตก ทำให้เกิด Upwelling (การพลิกกลับของน้ำเย็นจากก้นทะเล)</p>
+          </div>
+          <div class="bg-cyan-500/10 rounded-lg p-4">
+           <h5 class="font-semibold text-cyan-300 mb-2">ผลกระทบ</h5>
+           <ul class="text-sm text-gray-400 space-y-1">
+            <li>• ฝนตกหนักและน้ำท่วมในเอเชียตะวันออกเฉียงใต้</li>
+            <li>• ภัยแล้งในอเมริกาใต้ตะวันตก</li>
+            <li>• ผลผลิตการประมงเพิ่มขึ้นในเปรู (จาก Upwelling)</li>
+            <li>• ฤดูพายุเฮอริเคนในแอตแลนติกรุนแรงขึ้น</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- ENSO Cycle -->
+      <div class="info-card rounded-xl p-6">
+       <h4 class="title-font text-lg font-semibold mb-3 text-emerald-400">📊 วัฏจักร ENSO (El Niño-Southern Oscillation)</h4>
+       <p class="text-gray-300 text-sm leading-relaxed">เอลนีโญและลานีญาเป็นส่วนหนึ่งของวัฏจักร ENSO ซึ่งเกิดขึ้นทุก 2-7 ปี โดยมีช่วงปกติ (Neutral) คั่นกลาง การเปลี่ยนแปลงภูมิอากาศทำให้ปรากฏการณ์เหล่านี้เกิดถี่ขึ้นและรุนแรงขึ้น ส่งผลกระทบต่อสภาพอากาศทั่วโลก</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- ==================== SECTION 2.3: Indian Ocean Dipole ==================== -->
+   <section id="section2-3" class="min-h-screen py-24 px-4 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent">
+    <div class="max-w-5xl mx-auto">
+     <div class="page">
+      <div class="flex items-center gap-3 mb-6"><span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">2.3</span>
+       <h3 class="title-font text-2xl md:text-3xl font-bold">ขั้วคู่มหาสมุทรอินเดีย (Indian Ocean Dipole)</h3>
+      </div>
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col gap-8"><!-- IOD Map illustration -->
+        <div class="w-full">
+         <svg class="w-full max-w-2xl mx-auto" viewbox="0 0 500 280"><!-- Background --> <rect width="500" height="280" fill="#0f172a" rx="15" /> <!-- Title --> <text x="250" y="25" text-anchor="middle" fill="#a855f7" font-size="14" font-weight="bold">
+           Indian Ocean Dipole (IOD)
+          </text> <!-- Indian Ocean --> <ellipse cx="250" cy="160" rx="200" ry="100" fill="#0c4a6e" opacity="0.8" /> <!-- Africa --> <path d="M30 80 Q50 60 80 70 Q100 90 95 140 Q90 190 70 220 Q50 240 35 220 Q20 180 25 140 Q20 100 30 80Z" fill="#78716c" /> <text x="55" y="150" fill="#94a3b8" font-size="10">
+           แอฟริกา
+          </text> <!-- India --> <path d="M320 50 Q350 60 360 90 Q365 130 340 160 Q320 175 300 155 Q290 120 300 80 Q305 55 320 50Z" fill="#78716c" /> <text x="325" y="100" fill="#94a3b8" font-size="10">
+           อินเดีย
+          </text> <!-- Southeast Asia/Indonesia --> <g fill="#78716c">
+           <ellipse cx="420" cy="140" rx="25" ry="15" />
+           <ellipse cx="450" cy="160" rx="20" ry="10" />
+           <ellipse cx="430" cy="180" rx="30" ry="12" />
+           <ellipse cx="460" cy="195" rx="25" ry="10" />
+          </g> <text x="440" y="220" fill="#94a3b8" font-size="10">
+           อินโดนีเซีย
+          </text> <!-- Australia --> <path d="M380 230 Q420 225 460 240 Q480 260 460 275 Q420 280 380 270 Q360 255 380 230Z" fill="#78716c" /> <text x="420" y="260" fill="#94a3b8" font-size="10">
+           ออสเตรเลีย
+          </text> <!-- Positive IOD indicator (West warm) --> <g>
+           <circle cx="120" cy="150" r="35" fill="#ef4444" opacity="0.4">
+            <animate attributename="r" values="35;40;35" dur="2s" repeatcount="indefinite" />
+           </circle>
+           <text x="120" y="145" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold">
+            อุ่น
+           </text>
+           <text x="120" y="158" text-anchor="middle" fill="#fca5a5" font-size="8">
+            (+IOD)
+           </text>
+          </g> <!-- Negative IOD indicator (East cool) --> <g>
+           <circle cx="380" cy="150" r="35" fill="#06b6d4" opacity="0.4">
+            <animate attributename="r" values="35;40;35" dur="2s" repeatcount="indefinite" begin="1s" />
+           </circle>
+           <text x="380" y="145" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="bold">
+            เย็น
+           </text>
+           <text x="380" y="158" text-anchor="middle" fill="#67e8f9" font-size="8">
+            (+IOD)
+           </text>
+          </g> <!-- Wind direction --> <g stroke="#fbbf24" stroke-width="2" fill="none">
+           <path d="M350 145 L180 145" stroke-dasharray="8,4">
+            <animate attributename="stroke-dashoffset" from="0" to="-24" dur="1s" repeatcount="indefinite" />
+           </path>
+           <polygon points="180,140 165,145 180,150" fill="#fbbf24" />
+          </g> <text x="265" y="138" fill="#fbbf24" font-size="9">
+           ลมตะวันออก
+          </text> <!-- Rain indicator West --> <g transform="translate(100, 80)">
+           <ellipse cx="20" cy="10" rx="18" ry="8" fill="#6b7280" />
+           <ellipse cx="35" cy="8" rx="12" ry="6" fill="#6b7280" />
+           <g fill="#60a5fa">
+            <circle cx="20" cy="22" r="2">
+             <animate attributename="cy" values="22;32;22" dur="0.6s" repeatcount="indefinite" />
+            </circle>
+            <circle cx="30" cy="24" r="2">
+             <animate attributename="cy" values="24;34;24" dur="0.6s" repeatcount="indefinite" begin="0.2s" />
+            </circle>
+           </g>
+          </g> <!-- Drought indicator East --> <g transform="translate(370, 80)">
+           <circle cx="15" cy="15" r="15" fill="#fbbf24" opacity="0.6" />
+           <text x="15" y="20" text-anchor="middle" fill="#1e293b" font-size="12">
+            ☀️
+           </text>
+          </g>
+         </svg>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+         <div class="bg-gradient-to-br from-red-500/10 to-orange-500/10 rounded-2xl p-6 border border-red-500/30">
+          <h4 class="title-font text-lg font-semibold mb-4 text-red-400 flex items-center gap-2"><span class="text-xl">🔴</span> Positive IOD (+IOD)</h4>
+          <p class="text-gray-300 text-sm leading-relaxed mb-4">เกิดขึ้นเมื่ออุณหภูมิผิวน้ำทะเลทางตะวันตกของมหาสมุทรอินเดีย (ใกล้แอฟริกา) <strong class="text-red-300">สูงกว่าปกติ</strong> และทางตะวันออก (ใกล้อินโดนีเซีย) <strong class="text-cyan-300">ต่ำกว่าปกติ</strong></p>
+          <div class="space-y-2 text-sm">
+           <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-400"></span> <span class="text-gray-300">ฝนตกมากในแอฟริกาตะวันออก</span>
+           </div>
+           <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-400"></span> <span class="text-gray-300">ภัยแล้งในอินโดนีเซีย ออสเตรเลีย</span>
+           </div>
+           <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-orange-400"></span> <span class="text-gray-300">ไฟป่ารุนแรงในอินโดนีเซีย</span>
+           </div>
+          </div>
+         </div>
+         <div class="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl p-6 border border-blue-500/30">
+          <h4 class="title-font text-lg font-semibold mb-4 text-blue-400 flex items-center gap-2"><span class="text-xl">🔵</span> Negative IOD (-IOD)</h4>
+          <p class="text-gray-300 text-sm leading-relaxed mb-4">เกิดขึ้นเมื่ออุณหภูมิผิวน้ำทะเลทางตะวันตก <strong class="text-cyan-300">ต่ำกว่าปกติ</strong> และทางตะวันออก <strong class="text-red-300">สูงกว่าปกติ</strong> (ตรงข้ามกับ +IOD)</p>
+          <div class="space-y-2 text-sm">
+           <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-400"></span> <span class="text-gray-300">ภัยแล้งในแอฟริกาตะวันออก</span>
+           </div>
+           <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-400"></span> <span class="text-gray-300">ฝนตกมากในอินโดนีเซีย ออสเตรเลีย</span>
+           </div>
+           <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400"></span> <span class="text-gray-300">มรสุมอินเดียอ่อนกำลัง</span>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="info-card rounded-xl p-6">
+       <h4 class="title-font text-lg font-semibold mb-3 text-emerald-400">🔗 ความสัมพันธ์กับ ENSO</h4>
+       <p class="text-gray-300 text-sm leading-relaxed">IOD มีความสัมพันธ์กับปรากฏการณ์ ENSO (เอลนีโญ-ลานีญา) โดย Positive IOD มักเกิดร่วมกับเอลนีโญ ทำให้ผลกระทบรุนแรงขึ้น เช่น ในปี 2019 ที่เกิดไฟป่าครั้งใหญ่ในออสเตรเลีย เนื่องจากเกิด +IOD ร่วมกับสภาวะคล้ายเอลนีโญ</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- ==================== SECTION 2.4: Heat Waves ==================== -->
+   <section id="section2-4" class="min-h-screen py-24 px-4">
+    <div class="max-w-5xl mx-auto">
+     <div class="page">
+      <div class="flex items-center gap-3 mb-6"><span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm">2.4</span>
+       <h3 class="title-font text-2xl md:text-3xl font-bold">คลื่นความร้อน (Heat Waves)</h3>
+      </div>
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row gap-8 items-center">
+        <div class="lg:w-1/2"><!-- Heat wave illustration -->
+         <svg class="w-full max-w-md mx-auto" viewbox="0 0 300 300"><defs>
+           <lineargradient id="heatGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#fbbf24" />
+            <stop offset="50%" style="stop-color:#f97316" />
+            <stop offset="100%" style="stop-color:#dc2626" />
+           </lineargradient>
+           <filter id="heatGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <fegaussianblur stddeviation="10" result="blur" />
+            <femerge>
+             <femergenode in="blur" />
+             <femergenode in="SourceGraphic" />
+            </femerge>
+           </filter>
+          </defs> <!-- Background --> <rect width="300" height="300" fill="#1a1a2e" rx="20" /> <!-- Hot sky --> <rect y="0" width="300" height="200" fill="url(#heatGrad)" opacity="0.3" rx="20 20 0 0" /> <!-- Sun --> <circle cx="150" cy="70" r="50" fill="#fbbf24" filter="url(#heatGlow)">
+           <animate attributename="r" values="50;55;50" dur="2s" repeatcount="indefinite" />
+          </circle> <!-- Sun rays --> <g stroke="#fbbf24" stroke-width="3" opacity="0.6">
+           <line x1="150" y1="130" x2="150" y2="160">
+            <animate attributename="y2" values="160;170;160" dur="1s" repeatcount="indefinite" />
+           </line>
+           <line x1="80" y1="90" x2="55" y2="70">
+            <animate attributename="x2" values="55;45;55" dur="1s" repeatcount="indefinite" />
+           </line>
+           <line x1="220" y1="90" x2="245" y2="70">
+            <animate attributename="x2" values="245;255;245" dur="1s" repeatcount="indefinite" />
+           </line>
+           <line x1="100" y1="130" x2="70" y2="150">
+            <animate attributename="x2" values="70;60;70" dur="1.2s" repeatcount="indefinite" />
+           </line>
+           <line x1="200" y1="130" x2="230" y2="150">
+            <animate attributename="x2" values="230;240;230" dur="1.2s" repeatcount="indefinite" />
+           </line>
+          </g> <!-- Ground (cracked earth) --> <rect y="200" width="300" height="100" fill="#78350f" rx="0 0 20 20" /> <!-- Cracks --> <g stroke="#451a03" stroke-width="2" fill="none">
+           <path d="M50 210 L60 240 L45 270" />
+           <path d="M100 200 L110 230 L95 250 L105 280" />
+           <path d="M150 210 L145 250 L160 280" />
+           <path d="M200 200 L190 235 L205 260" />
+           <path d="M250 215 L240 245 L255 275" />
+          </g> <!-- Heat shimmer effect --> <g opacity="0.3">
+           <path d="M0 180 Q75 170 150 180 Q225 190 300 180" fill="none" stroke="#fbbf24" stroke-width="3">
+            <animate attributename="d" values="M0 180 Q75 170 150 180 Q225 190 300 180;M0 180 Q75 190 150 180 Q225 170 300 180;M0 180 Q75 170 150 180 Q225 190 300 180" dur="2s" repeatcount="indefinite" />
+           </path>
+           <path d="M0 190 Q75 200 150 190 Q225 180 300 190" fill="none" stroke="#f97316" stroke-width="2">
+            <animate attributename="d" values="M0 190 Q75 200 150 190 Q225 180 300 190;M0 190 Q75 180 150 190 Q225 200 300 190;M0 190 Q75 200 150 190 Q225 180 300 190" dur="2s" repeatcount="indefinite" begin="0.5s" />
+           </path>
+          </g> <!-- Temperature display --> <g transform="translate(200, 20)">
+           <rect x="0" y="0" width="80" height="40" fill="#dc2626" rx="8" />
+           <text x="40" y="28" text-anchor="middle" fill="white" font-size="20" font-weight="bold">
+            45°C
+           </text>
+          </g> <!-- Wilted plant --> <g transform="translate(60, 180)">
+           <rect x="13" y="20" width="4" height="20" fill="#78350f" />
+           <path d="M15 15 Q5 5 15 0 Q25 5 15 15" fill="#854d0e" transform="rotate(-30, 15, 15)" />
+           <path d="M15 18 Q25 8 15 3 Q5 8 15 18" fill="#92400e" transform="rotate(20, 15, 15)" />
+          </g>
+         </svg>
+        </div>
+        <div class="lg:w-1/2">
+         <h4 class="title-font text-2xl font-semibold mb-4 text-red-400">🌡️ คลื่นความร้อนคืออะไร?</h4>
+         <p class="text-gray-300 leading-relaxed mb-4">คลื่นความร้อน (Heat Wave) คือสภาวะที่อุณหภูมิสูงผิดปกติติดต่อกันหลายวัน โดยทั่วไปหมายถึงอุณหภูมิที่สูงกว่าค่าเฉลี่ยของพื้นที่นั้นอย่างมีนัยสำคัญ</p>
+         <div class="bg-red-500/10 rounded-xl p-4 mb-4 border-l-4 border-red-500">
+          <h5 class="font-semibold text-red-300 mb-2">⚠️ เกณฑ์การเตือนภัย</h5>
+          <ul class="text-sm text-gray-400 space-y-1">
+           <li>• อุณหภูมิสูงสุดเกิน 40°C ติดต่อกัน 3 วันขึ้นไป</li>
+           <li>• อุณหภูมิกลางคืนไม่ต่ำกว่า 25°C</li>
+           <li>• ดัชนีความร้อน (Heat Index) เกิน 41°C</li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </div><!-- Causes -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <h4 class="title-font text-xl font-semibold mb-6 text-center text-orange-400">🔬 สาเหตุของคลื่นความร้อน</h4>
+       <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center p-6 bg-white/5 rounded-2xl">
+         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-500/20 flex items-center justify-center"><span class="text-3xl">🌀</span>
+         </div>
+         <h5 class="font-semibold text-white mb-2">ระบบความกดอากาศสูง</h5>
+         <p class="text-sm text-gray-400">ความกดอากาศสูงกดอากาศร้อนให้ค้างอยู่เหนือพื้นที่ ทำให้ความร้อนสะสม</p>
+        </div>
+        <div class="text-center p-6 bg-white/5 rounded-2xl">
+         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/20 flex items-center justify-center"><span class="text-3xl">🏙️</span>
+         </div>
+         <h5 class="font-semibold text-white mb-2">เกาะความร้อนในเมือง</h5>
+         <p class="text-sm text-gray-400">คอนกรีตและแอสฟัลต์ดูดซับและปล่อยความร้อน ทำให้เมืองร้อนกว่านอกเมือง 3-5°C</p>
+        </div>
+        <div class="text-center p-6 bg-white/5 rounded-2xl">
+         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-500/20 flex items-center justify-center"><span class="text-3xl">🌍</span>
+         </div>
+         <h5 class="font-semibold text-white mb-2">ภาวะโลกร้อน</h5>
+         <p class="text-sm text-gray-400">อุณหภูมิเฉลี่ยโลกที่สูงขึ้นทำให้คลื่นความร้อนเกิดบ่อยและรุนแรงขึ้น</p>
+        </div>
+       </div>
+      </div><!-- Impacts -->
+      <div class="glass rounded-3xl p-8">
+       <h4 class="title-font text-xl font-semibold mb-6 text-center text-red-400">💔 ผลกระทบของคลื่นความร้อน</h4>
+       <div class="grid md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+         <div class="flex items-start gap-4 p-4 bg-red-500/10 rounded-xl"><span class="text-2xl">🏥</span>
+          <div>
+           <h5 class="font-semibold text-white">ผลกระทบต่อสุขภาพ</h5>
+           <p class="text-sm text-gray-400">ลมแดด (Heat Stroke), การขาดน้ำ, โรคหัวใจและหลอดเลือด ผู้สูงอายุและเด็กเสี่ยงมากที่สุด</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4 p-4 bg-orange-500/10 rounded-xl"><span class="text-2xl">🌾</span>
+          <div>
+           <h5 class="font-semibold text-white">ผลกระทบต่อเกษตรกรรม</h5>
+           <p class="text-sm text-gray-400">เชื้อผลเสียหาย, สัตว์เลี้ยงตายจากความร้อน, ดินแห้งแตก ขาดแคลนน้ำ</p>
+          </div>
+         </div>
+        </div>
+        <div class="space-y-4">
+         <div class="flex items-start gap-4 p-4 bg-yellow-500/10 rounded-xl"><span class="text-2xl">⚡</span>
+          <div>
+           <h5 class="font-semibold text-white">ผลกระทบต่อโครงสร้างพื้นฐาน</h5>
+           <p class="text-sm text-gray-400">ไฟฟ้าดับจากการใช้แอร์มาก, รางรถไฟบิดงอ, ถนนละลาย</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4 p-4 bg-amber-500/10 rounded-xl"><span class="text-2xl">🔥</span>
+          <div>
+           <h5 class="font-semibold text-white">ไฟป่า</h5>
+           <p class="text-sm text-gray-400">ความร้อนและความแห้งแล้งเพิ่มความเสี่ยงไฟป่า ทำลายระบบนิเวศและปล่อย CO₂</p>
+          </div>
+         </div>
+        </div>
+       </div><!-- Statistics -->
+       <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="text-center p-4 bg-white/5 rounded-xl">
+         <div class="text-2xl font-bold text-red-400">
+          61,000+
+         </div>
+         <p class="text-xs text-gray-400">ผู้เสียชีวิตจากคลื่นความร้อนในยุโรป ปี 2022</p>
+        </div>
+        <div class="text-center p-4 bg-white/5 rounded-xl">
+         <div class="text-2xl font-bold text-orange-400">
+          49.6°C
+         </div>
+         <p class="text-xs text-gray-400">อุณหภูมิสูงสุดที่บันทึกได้ในแคนาดา ปี 2021</p>
+        </div>
+        <div class="text-center p-4 bg-white/5 rounded-xl">
+         <div class="text-2xl font-bold text-yellow-400">
+          4x
+         </div>
+         <p class="text-xs text-gray-400">คลื่นความร้อนเกิดบ่อยขึ้นกว่าในอดีต</p>
+        </div>
+        <div class="text-center p-4 bg-white/5 rounded-xl">
+         <div class="text-2xl font-bold text-amber-400">
+          $500B
+         </div>
+         <p class="text-xs text-gray-400">ความเสียหายทางเศรษฐกิจต่อปี</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- ==================== CHAPTER 3 ==================== -->
+   <section id="chapter3" class="min-h-screen py-24 px-4 bg-gradient-to-b from-transparent via-green-900/10 to-transparent">
+    <div class="max-w-5xl mx-auto">
+     <div class="page"><!-- Chapter header -->
+      <div class="flex items-center gap-4 mb-8">
+       <div class="w-16 h-16 rounded-2xl icon-container flex items-center justify-center"><span class="text-3xl">🌱</span>
+       </div>
+       <div>
+        <p class="text-emerald-400 text-sm font-medium">บทที่ 3</p>
+        <h2 class="title-font text-3xl md:text-4xl font-bold">แนวทางชะลอการเปลี่ยนแปลง</h2>
+       </div>
+      </div>
+      <div class="section-divider w-full mb-12"></div>
+      <div class="info-card rounded-xl p-6 mb-12">
+       <p class="text-lg leading-relaxed">แม้ว่าการเปลี่ยนแปลงภูมิอากาศจะเริ่มเกิดขึ้นแล้ว แต่เรายังสามารถชะลอและลดผลกระทบได้ โดยต้องอาศัยความร่วมมือจากทุกภาคส่วน ตั้งแต่ระดับบุคคลไปจนถึงระดับโลก</p>
+      </div><!-- Solution 1: Renewable Energy -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row gap-8 items-center">
+        <div class="lg:w-1/3">
+         <svg class="w-full max-w-xs mx-auto" viewbox="0 0 200 200"><!-- Background --> <rect width="200" height="200" fill="#0f172a" rx="20" /> <!-- Sky gradient --> <rect width="200" height="130" fill="#1e3a5f" rx="20 20 0 0" /> <!-- Sun --> <circle cx="50" cy="40" r="20" fill="#fbbf24">
+           <animate attributename="r" values="20;22;20" dur="2s" repeatcount="indefinite" />
+          </circle> <!-- Wind turbine --> <g transform="translate(140, 50)">
+           <rect x="8" y="30" width="4" height="70" fill="#e5e7eb" />
+           <g transform="rotate(0, 10, 30)">
+            <animatetransform attributename="transform" type="rotate" values="0 10 30;360 10 30" dur="3s" repeatcount="indefinite" />
+            <rect x="8" y="0" width="4" height="30" fill="#d1d5db" rx="2" />
+            <rect x="8" y="0" width="4" height="30" fill="#d1d5db" rx="2" transform="rotate(120, 10, 30)" />
+            <rect x="8" y="0" width="4" height="30" fill="#d1d5db" rx="2" transform="rotate(240, 10, 30)" />
+           </g>
+           <circle cx="10" cy="30" r="5" fill="#94a3b8" />
+          </g> <!-- Solar panels --> <g transform="translate(20, 130)">
+           <rect x="0" y="0" width="70" height="40" fill="#1e3a8a" rx="3" />
+           <g stroke="#60a5fa" stroke-width="1">
+            <line x1="0" y1="10" x2="70" y2="10" />
+            <line x1="0" y1="20" x2="70" y2="20" />
+            <line x1="0" y1="30" x2="70" y2="30" />
+            <line x1="17" y1="0" x2="17" y2="40" />
+            <line x1="35" y1="0" x2="35" y2="40" />
+            <line x1="52" y1="0" x2="52" y2="40" />
+           </g> <!-- Light reflection -->
+           <rect x="5" y="5" width="10" height="4" fill="white" opacity="0.3" />
+          </g> <!-- Ground --> <rect y="170" width="200" height="30" fill="#166534" rx="0 0 20 20" /> <!-- Electric car --> <g transform="translate(100, 155)">
+           <rect x="0" y="8" width="40" height="15" fill="#3b82f6" rx="3" />
+           <rect x="5" y="3" width="25" height="10" fill="#60a5fa" rx="2" />
+           <circle cx="10" cy="25" r="5" fill="#1f2937" />
+           <circle cx="30" cy="25" r="5" fill="#1f2937" /> <!-- Lightning bolt -->
+           <text x="18" y="18" fill="#fbbf24" font-size="8">
+            ⚡
+           </text>
+          </g>
+         </svg>
+        </div>
+        <div class="lg:w-2/3">
+         <h3 class="title-font text-2xl font-semibold mb-4 text-emerald-400">⚡ พลังงานหมุนเวียน</h3>
+         <p class="text-gray-300 leading-relaxed mb-4">การเปลี่ยนจากเชื้อเพลิงฟอสซิลไปสู่พลังงานสะอาดเป็นวิธีที่มีประสิทธิภาพที่สุดในการลดก๊าซเรือนกระจก</p>
+         <div class="grid grid-cols-2 gap-4">
+          <div class="bg-yellow-500/10 rounded-lg p-4 text-center"><span class="text-3xl">☀️</span>
+           <h4 class="font-semibold text-yellow-400 mt-2">พลังงานแสงอาทิตย์</h4>
+           <p class="text-xs text-gray-400 mt-1">ต้นทุนลดลง 89% ในรอบ 10 ปี</p>
+          </div>
+          <div class="bg-cyan-500/10 rounded-lg p-4 text-center"><span class="text-3xl">💨</span>
+           <h4 class="font-semibold text-cyan-400 mt-2">พลังงานลม</h4>
+           <p class="text-xs text-gray-400 mt-1">ผลิตไฟฟ้าได้ทั้งบนบกและในทะเล</p>
+          </div>
+          <div class="bg-blue-500/10 rounded-lg p-4 text-center"><span class="text-3xl">💧</span>
+           <h4 class="font-semibold text-blue-400 mt-2">พลังงานน้ำ</h4>
+           <p class="text-xs text-gray-400 mt-1">แหล่งพลังงานสะอาดที่เสถียร</p>
+          </div>
+          <div class="bg-orange-500/10 rounded-lg p-4 text-center"><span class="text-3xl">🌿</span>
+           <h4 class="font-semibold text-orange-400 mt-2">พลังงานชีวมวล</h4>
+           <p class="text-xs text-gray-400 mt-1">จากของเสียทางการเกษตร</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Solution 2: Forest Conservation -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <div class="flex flex-col lg:flex-row-reverse gap-8 items-center">
+        <div class="lg:w-1/3">
+         <svg class="w-full max-w-xs mx-auto" viewbox="0 0 200 200"><!-- Background --> <rect width="200" height="200" fill="#0f172a" rx="20" /> <!-- Sky --> <rect width="200" height="140" fill="#1e3a5f" rx="20 20 0 0" /> <!-- Sun --> <circle cx="160" cy="35" r="20" fill="#fbbf24" opacity="0.8" /> <!-- CO2 being absorbed --> <g fill="#ef4444" font-size="10" opacity="0.6">
+           <text x="30" y="50">
+            CO₂
+           </text>
+           <text x="80" y="35">
+            CO₂
+           </text>
+           <text x="120" y="55">
+            CO₂
+           </text>
+           <animatemotion dur="4s" repeatcount="indefinite">
+            <mpath href="#absorbPath" />
+           </animatemotion>
+          </g> <!-- O2 being released --> <g fill="#22c55e" font-size="10">
+           <text x="50" y="70" opacity="0.8">
+            O₂ 
+            <animate attributename="y" values="70;50;70" dur="3s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.8;0.3;0.8" dur="3s" repeatcount="indefinite" />
+           </text>
+           <text x="100" y="65" opacity="0.7">
+            O₂ 
+            <animate attributename="y" values="65;45;65" dur="3.5s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.7;0.3;0.7" dur="3.5s" repeatcount="indefinite" />
+           </text>
+           <text x="140" y="75" opacity="0.6">
+            O₂ 
+            <animate attributename="y" values="75;55;75" dur="2.5s" repeatcount="indefinite" />
+            <animate attributename="opacity" values="0.6;0.2;0.6" dur="2.5s" repeatcount="indefinite" />
+           </text>
+          </g> <!-- Ground --> <rect y="140" width="200" height="60" fill="#166534" rx="0 0 20 20" /> <!-- Trees --> <g><!-- Tree 1 -->
+           <rect x="25" y="100" width="10" height="40" fill="#854d0e" />
+           <polygon points="30,50 5,100 55,100" fill="#15803d" />
+           <polygon points="30,65 10,95 50,95" fill="#22c55e" /> <!-- Tree 2 -->
+           <rect x="70" y="95" width="12" height="45" fill="#854d0e" />
+           <polygon points="76,40 45,95 107,95" fill="#15803d" />
+           <polygon points="76,55 50,90 102,90" fill="#22c55e" /> <!-- Tree 3 -->
+           <rect x="115" y="105" width="10" height="35" fill="#854d0e" />
+           <polygon points="120,60 95,105 145,105" fill="#15803d" />
+           <polygon points="120,72 100,100 140,100" fill="#22c55e" /> <!-- Tree 4 -->
+           <rect x="155" y="100" width="10" height="40" fill="#854d0e" />
+           <polygon points="160,55 140,100 180,100" fill="#15803d" />
+           <polygon points="160,68 145,95 175,95" fill="#22c55e" />
+          </g> <!-- Small plants --> <g fill="#4ade80">
+           <ellipse cx="45" cy="155" rx="8" ry="4" />
+           <ellipse cx="95" cy="160" rx="6" ry="3" />
+           <ellipse cx="145" cy="155" rx="7" ry="4" />
+          </g>
+         </svg>
+        </div>
+        <div class="lg:w-2/3">
+         <h3 class="title-font text-2xl font-semibold mb-4 text-emerald-400">🌳 การอนุรักษ์และฟื้นฟูป่าไม้</h3>
+         <p class="text-gray-300 leading-relaxed mb-4">ป่าไม้เป็น "ปอดของโลก" ที่ดูดซับ CO₂ และปล่อยออกซิเจน การปกป้องป่าที่มีอยู่และปลูกป่าใหม่เป็นกุญแจสำคัญ</p>
+         <div class="space-y-3">
+          <div class="flex items-center gap-3 p-3 bg-green-500/10 rounded-lg"><span class="text-xl">🛡️</span>
+           <div>
+            <h4 class="font-semibold text-green-400">หยุดยั้งการตัดไม้ทำลายป่า</h4>
+            <p class="text-sm text-gray-400">ปกป้องป่าดิบชื้นที่เหลืออยู่ โดยเฉพาะในแอมะซอนและเอเชียตะวันออกเฉียงใต้</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-500/10 rounded-lg"><span class="text-xl">🌱</span>
+           <div>
+            <h4 class="font-semibold text-green-400">ปลูกป่าใหม่ (Reforestation)</h4>
+            <p class="text-sm text-gray-400">เป้าหมายปลูกต้นไม้ 1 ล้านล้านต้นทั่วโลกภายในปี 2030</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-500/10 rounded-lg"><span class="text-xl">🌿</span>
+           <div>
+            <h4 class="font-semibold text-green-400">ป่าในเมือง (Urban Forest)</h4>
+            <p class="text-sm text-gray-400">เพิ่มพื้นที่สีเขียวในเมืองช่วยลดเกาะความร้อนและปรับปรุงคุณภาพอากาศ</p>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Solution 3: Sustainable Living -->
+      <div class="glass rounded-3xl p-8 mb-8">
+       <h3 class="title-font text-2xl font-semibold mb-6 text-center text-emerald-400">🏠 การใช้ชีวิตอย่างยั่งยืน</h3>
+       <p class="text-gray-300 text-center mb-8">ทุกคนสามารถมีส่วนร่วมในการชะลอการเปลี่ยนแปลงภูมิอากาศได้ผ่านการปรับเปลี่ยนพฤติกรรมในชีวิตประจำวัน</p>
+       <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white/5 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
+         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-3xl">🚴</span>
+         </div>
+         <h4 class="font-semibold text-white mb-2">การเดินทางสีเขียว</h4>
+         <ul class="text-sm text-gray-400 space-y-1 text-left">
+          <li>• ใช้ระบบขนส่งสาธารณะ</li>
+          <li>• ปั่นจักรยานหรือเดินในระยะใกล้</li>
+          <li>• ใช้รถยนต์ไฟฟ้าหรือไฮบริด</li>
+          <li>• ร่วมใช้รถ (Carpooling)</li>
+         </ul>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
+         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-500/20 flex items-center justify-center"><span class="text-3xl">💡</span>
+         </div>
+         <h4 class="font-semibold text-white mb-2">ประหยัดพลังงาน</h4>
+         <ul class="text-sm text-gray-400 space-y-1 text-left">
+          <li>• ใช้หลอดไฟ LED</li>
+          <li>• ปิดเครื่องใช้ไฟฟ้าเมื่อไม่ใช้</li>
+          <li>• เลือกเครื่องใช้ไฟฟ้าที่ประหยัดพลังงาน</li>
+          <li>• ติดตั้งแผงโซลาร์เซลล์</li>
+         </ul>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
+         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/20 flex items-center justify-center"><span class="text-3xl">♻️</span>
+         </div>
+         <h4 class="font-semibold text-white mb-2">ลด-ใช้ซ้ำ-รีไซเคิล</h4>
+         <ul class="text-sm text-gray-400 space-y-1 text-left">
+          <li>• ลดการใช้พลาสติกแบบใช้ครั้งเดียว</li>
+          <li>• แยกขยะรีไซเคิล</li>
+          <li>• เลือกผลิตภัณฑ์ที่ใช้บรรจุภัณฑ์น้อย</li>
+          <li>• ซ่อมแซมแทนการซื้อใหม่</li>
+         </ul>
+        </div>
+       </div>
+      </div><!-- Solution 4: Policy & International Cooperation -->
+      <div class="glass rounded-3xl p-8">
+       <h3 class="title-font text-2xl font-semibold mb-6 text-center text-emerald-400">🤝 ความร่วมมือระดับโลก</h3>
+       <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl p-6 border border-blue-500/30">
+         <h4 class="title-font text-lg font-semibold mb-4 text-blue-400 flex items-center gap-2"><span class="text-xl">📜</span> ความตกลงปารีส (Paris Agreement)</h4>
+         <p class="text-gray-300 text-sm leading-relaxed mb-4">ข้อตกลงระหว่างประเทศที่มีเป้าหมายจำกัดการเพิ่มขึ้นของอุณหภูมิโลกไม่เกิน 1.5°C เหนือระดับก่อนยุคอุตสาหกรรม</p>
+         <div class="flex flex-wrap gap-2"><span class="px-3 py-1 bg-blue-500/20 rounded-full text-xs text-blue-300">ปี 2015</span> <span class="px-3 py-1 bg-blue-500/20 rounded-full text-xs text-blue-300">196 ประเทศ</span> <span class="px-3 py-1 bg-blue-500/20 rounded-full text-xs text-blue-300">Net Zero 2050</span>
+         </div>
+        </div>
+        <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl p-6 border border-green-500/30">
+         <h4 class="title-font text-lg font-semibold mb-4 text-green-400 flex items-center gap-2"><span class="text-xl">🎯</span> เป้าหมายการพัฒนาที่ยั่งยืน (SDGs)</h4>
+         <p class="text-gray-300 text-sm leading-relaxed mb-4">เป้าหมายที่ 13: Climate Action เป็นหนึ่งใน 17 เป้าหมายของ UN ที่มุ่งเน้นการดำเนินการเร่งด่วนเพื่อต่อสู้กับการเปลี่ยนแปลงภูมิอากาศ</p>
+         <div class="flex flex-wrap gap-2"><span class="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-300">SDG 13</span> <span class="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-300">Climate Action</span> <span class="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-300">ปี 2030</span>
+         </div>
+        </div>
+       </div><!-- Call to Action -->
+       <div class="mt-8 text-center p-8 bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 rounded-2xl border border-emerald-500/30">
+        <h4 class="title-font text-xl font-semibold mb-4 text-white">🤝 เราทุกคนมีส่วนสำคัญ</h4>
+        <p class="text-gray-300 mb-6 max-w-2xl mx-auto">การเปลี่ยนแปลงภูมิอากาศเป็นความท้าทายที่ใหญ่ที่สุดของมนุษยชาติ แต่ถ้าเราร่วมมือกัน เราสามารถสร้างอนาคตที่ยั่งยืนให้กับโลกและลูกหลานของเราได้</p>
+        <div class="flex flex-wrap justify-center gap-4"><span class="px-4 py-2 bg-emerald-500/20 rounded-full text-emerald-400 font-medium">🌱 เริ่มจากตัวเรา</span> <span class="px-4 py-2 bg-cyan-500/20 rounded-full text-cyan-400 font-medium">🗣️ บอกต่อความรู้</span> <span class="px-4 py-2 bg-blue-500/20 rounded-full text-blue-400 font-medium">🤝 ร่วมมือเพื่ออนาคต</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- ==================== FOOTER ==================== -->
+   <footer class="py-16 px-4 border-t border-white/10">
+    <div class="max-w-5xl mx-auto"><!-- Main footer info -->
+     <div class="text-center mb-16">
+      <div class="flex items-center justify-center gap-3 mb-4">
+       <div class="w-10 h-10 rounded-full icon-container flex items-center justify-center">
+        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0110.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+       </div><span class="title-font font-semibold text-lg text-emerald-400">การเปลี่ยนแปลงภูมิอากาศโลก</span>
+      </div>
+      <p class="text-gray-400 text-sm mb-4">Digital Book สร้างเพื่อการศึกษาเรื่องการเปลี่ยนแปลงภูมิอากาศ</p>
+      <div class="flex justify-center gap-4 text-xs text-gray-500"><span>📚 บทที่ 1-3</span> <span>•</span> <span>🌍 Global Climate Change</span> <span>•</span> <span>💚 Act Now</span>
+      </div>
+     </div><!-- Divider -->
+     <div class="section-divider w-24 mx-auto mb-12"></div><!-- Team members section -->
+     <div class="glass rounded-2xl p-8 max-w-3xl mx-auto">
+      <h3 class="title-font text-2xl font-bold text-center mb-2 bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">คณะผู้จัดทำ</h3>
+      <p class="text-center text-gray-400 text-sm mb-8">โครงการจัดทำหนังสือดิจิทัลเพื่อการศึกษา</p>
+      <div class="grid md:grid-cols-2 gap-4"><!-- Team member 1 -->
+       <div class="team-card flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+         1
+        </div>
+        <div>
+         <h4 class="font-semibold text-white">นายชยพัทธ์ บุญญะ</h4>
+         <p class="text-xs text-gray-400">เลขที่ 1</p>
+        </div>
+       </div><!-- Team member 2 -->
+       <div class="team-card flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+         2
+        </div>
+        <div>
+         <h4 class="font-semibold text-white">นายกิตติเดช ชูวารี</h4>
+         <p class="text-xs text-gray-400">เลขที่ 2</p>
+        </div>
+       </div><!-- Team member 3 -->
+       <div class="team-card flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+         3
+        </div>
+        <div>
+         <h4 class="font-semibold text-white">นายปิยพง บัวแก้ว</h4>
+         <p class="text-xs text-gray-400">เลขที่ 3</p>
+        </div>
+       </div><!-- Team member 4 -->
+       <div class="team-card flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+         6
+        </div>
+        <div>
+         <h4 class="font-semibold text-white">นายพงศวัฒน์ ศรีชาย</h4>
+         <p class="text-xs text-gray-400">เลขที่ 6</p>
+        </div>
+       </div><!-- Team member 5 -->
+       <div class="team-card flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+         7
+        </div>
+        <div>
+         <h4 class="font-semibold text-white">นายเลิศพิพัฒน์ สุริยาแสงงาม</h4>
+         <p class="text-xs text-gray-400">เลขที่ 7</p>
+        </div>
+       </div><!-- Team member 6 -->
+       <div class="team-card flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+         15
+        </div>
+        <div>
+         <h4 class="font-semibold text-white">นายธีรเดช ปาละคเชนทร์</h4>
+         <p class="text-xs text-gray-400">เลขที่ 15</p>
+        </div>
+       </div>
+      </div><!-- Footer message -->
+      <div class="mt-8 pt-6 border-t border-white/10 text-center">
+       <p class="text-sm text-gray-400 mb-3"><span class="text-emerald-400 font-semibold">✓ ทั้งทีมทำงานร่วมกัน</span> เพื่อสร้างความตระหนักรู้เกี่ยวกับการเปลี่ยนแปลงภูมิอากาศ</p>
+       <p class="text-xs text-gray-500">💚 ดำเนินการโดยความห่วงใยต่ออนาคตของโลก</p>
+      </div>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      book_title: 'การเปลี่ยนแปลงภูมิอากาศโลก'
+    };
+    
+    let config = { ...defaultConfig };
+    
+    // Initialize Elements SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          
+          // Update main title
+          const mainTitle = document.getElementById('main-title');
+          if (mainTitle) {
+            mainTitle.textContent = config.book_title || defaultConfig.book_title;
+          }
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['book_title', config.book_title || defaultConfig.book_title]
+        ])
+      });
+    }
+    
+    // Mobile menu functionality
+    const menuBtn = document.getElementById('menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const menuLinks = document.querySelectorAll('.menu-link');
+    
+    function openMenu() {
+      mobileMenu.classList.remove('hidden');
+    }
+    
+    function closeMenu() {
+      mobileMenu.classList.add('hidden');
+    }
+    
+    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+    menuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+    
+    // Reading progress indicator
+    const progressBar = document.getElementById('reading-progress');
+    const app = document.getElementById('app');
+    
+    if (app && progressBar) {
+      app.addEventListener('scroll', () => {
+        const scrollTop = app.scrollTop;
+        const scrollHeight = app.scrollHeight - app.clientHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = `${Math.min(progress, 100)}%`;
+      });
+    }
+    
+    // Page visibility animation on scroll
+    const pages = document.querySelectorAll('.page');
+    
+    const observerOptions = {
+      root: app,
+      threshold: 0.1,
+      rootMargin: '0px 0px -10% 0px'
+    };
+    
+    const pageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    
+    pages.forEach(page => {
+      pageObserver.observe(page);
+    });
+    
+    // Navigation dots active</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c729f0d71e0f879',t:'MTc2OTk2MTIwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
